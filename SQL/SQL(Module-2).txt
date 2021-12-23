@@ -1,0 +1,296 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+TASK-1:
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+B1.Get First_Name from employee table using alias name “Employee Name”.
+SELECT First_Name as Employee FROM employee;
+
+B2.Get FIRST_NAME, Joining year, Joining Month and Joining Date from employee table.
+SELECT First_Name, Joining_Date FROM employee;
+
+B3.Get all employee details from the employee table order by First_Name Ascending and Salary descending.
+SELECT * FROM employee ORDER BY First_Name ASC, Last_Name DESC;
+
+B4.Get employee details from employee table whose first name contains ‘o’.
+SELECT *FROM employee WHERE First_Name LIKE "%o%";
+
+I1.Get employee details from employee table whose joining month is “January”.
+SELECT * FROM employee WHERE Joining_Date="2013/01/01";
+
+I2.Get department, totalsalarywith respect to a department fromemployee table order by total salary descending.
+SELECT  Department, Salary FROM employee ORDER BY Salary DESC;
+
+I3.Get department wise maximum salary from employee table order by salary ascending.
+SELECT Department, MAX(Salary) as MaxSalary FROM employee GROUP BY Department ORDER BY MaxSalary ASC;
+
+I4.Select first_name, incentive amount from employee and incentives table for those employees who have incentives and incentive amount greater than 3000.
+Select First_Name, Incentive_Amt from employee inner join incentives on employee.Em_id=incentives.Em_id and Incentive_Amt >3000;
+
+A1.Select 2nd Highest salary from employee table.
+select min(Salary) from (select * from employee order by Salary desc limit 2) employee;
+
+A2.Select first_name, incentive amount from employee and incentives table for all employees who got incentives using left join.
+Select First_Name, Incentive_Amt from employee employee right join incentives on employee.Em_id = incentives.Em_id;
+
+A3.Create View OF Employee table in which store first name ,last name and salary only.
+CREATE VIEW employeeview AS SELECT Firstname, Lastname, Salary FROM employee;
+
+A4.Create Procedure to find out department wise highest salary.
+CREATE PROCEDURE deptwisesalary() 
+SELECT Department, MAX(Salary) FROM employee GROUP BY Department;
+
+A5.Create After Insert trigger on Employee table which insert records in view table.
+CREATE TRIGGER trigger1
+AFTER INSERT 
+ON employee
+FOR EACH ROW
+INSERT INTO employeeview (Firstname, Lastname, Salary) VALUES (old.Firstname, old.Lastname, old.Salary);
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+TASK-2
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+B1.All orders for more than $1000.
+Select * from order1 where amt > 1000;
+
+B2.Names and citires of all salespeople in london with commission above 0.10.
+Select * from salesperson where comm > 0.10 and city = "London";
+
+B3.All salespeople either in Barcelona or in london.
+Select sname, city from salesperson where city in ("Barcelona","London");
+
+B4.All salespeople with commission between 0.10 and 0.12. (Boundary values should be excluded)
+Select sname, comm from salesperson where comm > 0.10 and comm < 0.12;
+
+B5.All customers with NULL values in city column.
+Select cname from customer where city is null;
+
+I1.All orders taken on Oct 3Rd   and Oct 4th  1994.
+Select * from order1 where ode in ("1994/10/03","1994/10/04");
+
+I2.All customers serviced by peel or Motika.
+Select cname from customer, order1 where order1.cnm = customer.cnm and order1.sno in (select sno from salesperson where sname in ("Peel","Motika"));
+
+I3.All customers whose names begin with a letter from A to B.
+Select cname from customer where cname like "H%" or cname like "G%";
+
+I4.All customers excluding those with rating <= 100 unless they are located in Rome.
+Select cname from customer where rating <= 100 or city = "Rome";
+
+A1.All orders except those with 0 or NULL value in amt field.
+Select onm from order1 where amt != 0 or amt is not null;
+
+A2.Count the number of salespeople currently listing orders in the order table.
+Select count(distinct sno) from order1;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+TASK-3
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1)Table tblProducts:
+CREATE TABLE tblProducts(tID INT PRIMARY KEY AUTO_INCREMENT, ProductName VARCHAR(20), RecommendedPrice decimal(11,2), Category VARCHAR(10));
+
+INSERT INTO tblProducts(ProductName,RecommendedPrice,Category) VALUES('DVD',105.00 ,'LivingRoom' )
+INSERT INTO tblProducts(ProductName,RecommendedPrice,Category) VALUES('MICROWAVE',98.00 ,'Kitchen' )
+INSERT INTO tblProducts(ProductName,RecommendedPrice,Category) VALUES('MONITOR',200.00 ,'Office' )
+INSERT INTO tblProducts(ProductName,RecommendedPrice,Category) VALUES('Speakers',85.00 ,'Office' )
+INSERT INTO tblProducts(ProductName,RecommendedPrice,Category) VALUES('Refrigerator',900.00 ,'Kitchen' )                 
+INSERT INTO tblProducts(ProductName,RecommendedPrice,Category) VALUES('VCR',165.00 ,'LivingRoom' )
+INSERT INTO tblProducts(ProductName,RecommendedPrice,Category) VALUES('CoffeePot',35.00 ,'Kitchen')           
+
+
+2)Table tblCustomers:
+CREATE TABLE tblCustomers(CustomerID INT PRIMARY KEY AUTO_INCREMENT, FirstName VARCHAR(50), LastName VARCHAR(50), City VARCHAR(50), State CHAR(2), Zip VARCHAR(10));
+
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Chintan', 'Patel','Anand','GJ' ,'388001')
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Paresh', 'Prajapati','Nadiad','GJ','387001' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Pragnesh', 'Patel','Surat','GJ','395008' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Nilesh', 'Dharsandia','Mumbai','MH','400002' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Sonal', 'Patel','Mumbai','MH','400002' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Harshal', 'Patel','Mogri','GJ','388345' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Prakash', 'Rathod','Mogri','GJ','388345' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Aarzoo', 'Dodhiya','Rajkot','GJ','360003' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Heta', 'Dave','Varanasi','UP','221002' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Nikita', 'Dave','Varanasi','UP','221002' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Vaibhav', 'Dave','Varanasi','UP','221002' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Paresh', 'Patel','Pune','MH' ,'411001')
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Prakash', 'Patel','Pune','MH','411001' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Sandhya', 'Patel','Hyedrabad','AP','500031' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Divesh', 'Patel','Hyedrabad','KA','560002' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Payal', 'Shah','Banglore','KA','560002' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Priyanka', 'Rana','Banglore','GJ','388121' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Sanket', 'Dhebar','Anand','GJ','388121' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Puja', 'Shah','V.V.Nagar','UP','388122' )
+INSERT INTO tblCustomers(FirstName,LastName,City,State,Zip) VALUES('Priya', 'Shah','Varanasi','UP','221002' )
+
+
+3)Table tblSales:                          
+CREATE TABLE tblSales(SalesID INT PRIMARY KEY AUTO_INCREMENT, ProductID INT REFERENCES tblProducts(tID), CustomerID INT REFERENCES tblCustomers(CustomerID),SalesPrice decimal(11,2), SalesDate date);                     
+
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(1,1,130.00,'2005-06-14')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(2,2,97.00,'2005-06-19')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(3,3,200.00,'2005-09-20')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(4,4,80.00,'2005-03-22')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(5,5,899.00,'2005-01-23')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(6,6,150.00,'2005-03-24')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(3,7,209.00,'2005-03-10')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(4,8,90.00, '2005-08-11')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(6,9,130.00, '2005-08-12')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(2,14,85.00, '2005-12-13')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(3,15,240.00, '2005-05-14')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(1,17,87.00, '2005-07-19')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(2,18,99.00, '2005-09-20')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(6,19,150.00, '2005-07-22')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(5,5,900.00, '2005-03-06')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(4,6,86.00, '2005-04-07')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(2,7,88.00, '2005-11-08')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(3,8,198.00, '2005-05-09')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(1,9,150.00, '2005-10-10')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(6,14,99.00, '2005-09-09')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(6,15,104.00, '2005-09-20')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(4,14,90.00, '2005-07-22')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(1,1,130.00,'2005-03-06')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(2,2,102.00, '2005-04-07')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(1,3,114.00, '2005-11-08')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(5,4,1000.00, '2005-05-09')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(5,5,1100.00, '2005-10-10')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(3,6,285.00, '2005-06-11')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(2,7,87.00, '2005-10-12')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(3,8,300.00, '2005-07-13')
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(3,20,205.00, '2005-12-31')
+
+
+B1.Return the First Name, Last Name, Product Name, and Sale Price for all products sold in the month of October 2005.
+SELECT  FirstName, LastName, ProductName, SalesPrice FROM tblCustomers INNER JOIN tblProducts ON tblProducts.tID=tblCustomers.CustomerID INNER JOIN tblSales  
+ON tID=ProductID WHERE SalesDate BETWEEN '2005-10-01' AND '2005-10-31';
+
+
+B2.Return the CustomerID, First Name, and Last Name of those individuals in the Customer table who have made no Sales purchases.
+SELECT CustomerID,FirstName,LastName FROM tblCustomers WHERE CustomerID not in (select distinct CustomerID from tblSales);
+
+B3.Return the First Name, Last Name, Sale Price, Recommended Sale Price, and the difference between the Sale Price and Recommended Sale Price for all Sales. 
+The difference must be returned as a positive number.
+SELECT FirstName,LastName,SalesPrice,abs(SalesPrice-RecommendedPrice) as diff FROM tblCustomers INNER JOIN tblProducts ON tblProducts.tID= tblCustomers.CustomerID
+INNER JOIN tblSales  ON tID=ProductID;
+
+B4.Return the average Sale Price by Product Category.
+SELECT category,AVG(salesprice) as total FROM tblProducts inner join tblSales on ProductID=tID GROUP BY category;
+
+Baki=I1.Add the following Customer and Sale information to the database. (using store procedure)
+FirstName: Priyanka
+LastName: Chopra
+City: Mumbai
+State: MH
+Zip: 400001
+ProductID: 3
+SalePrice: 205
+SaleDate: 12/31/2005
+
+CREATE PROCEDURE spInsertInToSalesDetails()
+
+DECLARE @firstName varchar(50);
+ @lastName  varchar(50);
+ @productName  varchar(50);
+ @cat varchar(50);
+ @sPrice float;
+ @custID int;
+ @pid int;
+
+as begin
+SET @custID = (SELECT CustomerID FROM tblCustomers WHERE FirstName = @firstName AND LastName = @lastName);
+SET @pid = (SELECT tID FROM tblProducts WHERE ProductName = @productName;
+INSERT INTO tblSales(ProductID,CustomerID,SalesPrice,SalesDate) VALUES(@pid,@custID,@sPrice,'');
+END
+
+I2.Return the Product Category and the average Sale Price for those customers who have purchased two or more products.
+SELECT distinct FirstName,LastName,Category, COUNT(*) AS 'Total Product',AVG(salesprice) as 'Average Sale Price'
+FROM tblProducts INNER JOIN tblSales ON tblProducts.tID=tblSales.ProductID INNER JOIN tblCustomers ON tblSales.CustomerID=tblCustomers.CustomerID
+GROUP BY category,FirstName,LastName HAVING COUNT(*)>=2
+
+Baki=A1.Update the Sale Price to the Recommended Sale Price of those Sales occurring between 6/10/2005 and 6/20/2005.
+UPDATE tblSales SET SalesPrice= RecommendedPrice FROM tblSales INNER JOIN tblProducts ON tblSales.ProductID = tblProducts.tID 
+WHERE SalesDate BETWEEN '2005-06-10' AND '2005-06-20';
+
+A2.Number of Sales by Product Category where the average Recommended Price is 10 or more dollars greater than the average Sale Price.
+SELECT Category,COUNT(SalesID) FROM tblProducts INNER JOIN tblSales ON tID=ProductID GROUP BY category
+HAVING AVG(RecommendedPrice) >= 10 AND AVG(RecommendedPrice)>AVG(SalesPrice);
+
+A3.Without using a declared iterative construct, return Sale Date and the running total for all sales, ordered by the Sale Date in Ascending Order.
+SELECT distinct FirstName,LastName,ProductName, COUNT(*) as 'Total'
+FROM tblCustomers
+INNER JOIN tblSales ON tblCustomers.CustomerID=tblSales.ProductID
+INNER JOIN tblProducts ON tblProducts.tID = tblCustomers.CustomerID
+GROUP BY FirstName,LastName,ProductName
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+TASK -4 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+I-1
+
+SELECT pno, pname
+FROM `tblproj`
+WHERE budget > 100000;
+
+I=2
+
+SELECT eno, ename
+FROM `tblemp1`
+WHERE (title = 'EE' OR title = 'SA') AND salary > 35000;
+
+I-3
+
+SELECT *
+FROM `tblworkson`
+WHERE hours < 10 AND resp = 'Manager';
+
+I-4
+
+SELECT ename
+FROM `tblemp1`
+WHERE dno = 'D1'
+ORDER BY salary DESC;
+
+I-5
+
+SELECT *
+FROM `tbldept`
+ORDER BY dname ASC
+
+I-6
+
+SELECT ename, dname, title
+FROM `tblemp1`, `tbldept`
+WHERE tblemp1.dno = tbldept.dno
+
+I-7
+
+SELECT pname, hours, tblproj.pno
+FROM `tblworkson`, `tblproj`
+WHERE hours > 10 AND tblproj.pno = tblworkson.pno
+
+I-8
+
+SELECT pname, dname, budget
+FROM `tblproj`, `tbldept`
+WHERE budget < 50000 AND tblproj.dno = tbldept.dno
+
+I-9
+
+SELECT eno, salary
+FROM `tblemp1`, `tbldept`
+WHERE dname = 'Consulting'
+ORDER BY salary DESC
+
+I-10
+
+SELECT ename, pname, title, hours
+FROM `tblemp1`, `tblproj`, `tblworkson`
+WHERE tblemp1.eno = tblworkson.eno and tblproj.pno = tblworkson.pno
