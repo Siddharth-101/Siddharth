@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Registration Form</title>
+</head>
+<body>
+    <form> 
+        <fieldset> 
+        <div class="container w-25">  
+        <center>  <h1> Registeration Form</h1> </center>  
+        <hr>  
+        <label><b>Firstname</b></label>   
+      <input type="text" name="firstname" placeholder= "Firstname" size="15" required />    
+      <label for="psw"><b>Password</b></label>  
+          <input type="password" placeholder="Enter Password" name="psw" required>  
+      <div> 
+       
+        <tr>
+            <th><label for="Address"><strong>Address</strong></label></th>
+            <td><textarea name="myaddress" id="Address" cols="21" rows="3"
+                    placeholder="Enter your address..."></textarea></td>
+        </tr>
+
+      <div>  
+      <th><label for="MaritalStatus">   
+        Marital Status :  
+      </th>  
+    </label>
+      <input type="radio" value="Male" name="maritalstatus"> Married   
+      <input type="radio" value="Female" name="maritalstatus"> Unmarried       
+      </div> 
+
+      <tr>
+        <th><label for="age"><strong>D.O.B</strong></label></th>
+        <td><input type="date" placeholder="Select your age"></td>
+    </tr>
+        <br>
+      <button type="submit" class="submitbtn">Submit</button>
+          <button type="submit" class="registerbtn">Register</button>    
+        </fieldset>
+        </form>  
+</body>
+</html>

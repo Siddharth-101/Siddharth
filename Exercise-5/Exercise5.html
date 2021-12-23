@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module-5 Time-Table</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h3>Exercise 5: Time-Table using table tag <hr></h3>
+    
+    <table border="1" cellspacing="0px" cellpadding="10px" align="center">
+            <tr>
+                <th colspan="6" style="text-align: center; background-color: gray;">Time-Table</th>
+            </tr>
+        
+            <tr>
+                <th style="background-color: gray;">Days</th>
+                <th>1</th>
+                <th>2</th>
+                <th rowspan="4" style="writing-mode: vertical-lr; background-color: gray;">Lunch</th>
+                <th colspan="2">3</th>
+            </tr>
+            <tr>
+                <th style="background-color: gray;">Monday</th>
+                <td>English</td>
+                <td>Social Science</td>
+
+                <td colspan="2">Sanskrit</td>
+            </tr>
+            <tr>
+                <th style="background-color: gray;">Wednesday</th>
+                <td>Maths</td>
+                <td>GK</td>
+
+                <td colspan="2">English</td>
+            </tr>
+            <tr>
+                <th style="background-color: gray;">Friday</th>
+                <td>Science</td>
+                <td>Hindi</td>
+                <td colspan="2">Computer</td>
+            </tr>
+    </table>
+</body>
+</html>
